@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedWhiteBoard", "SharedWhiteBoard\SharedWhiteBoard.csproj", "{EA26963F-C300-4E21-8090-05883B1FC41F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedWhiteBoard.Tests", "SharedWhiteBoard.Tests\SharedWhiteBoard.Tests.csproj", "{CEC60A40-5BC8-49D8-8C56-BEDF044373F9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA26963F-C300-4E21-8090-05883B1FC41F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA26963F-C300-4E21-8090-05883B1FC41F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA26963F-C300-4E21-8090-05883B1FC41F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA26963F-C300-4E21-8090-05883B1FC41F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEC60A40-5BC8-49D8-8C56-BEDF044373F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEC60A40-5BC8-49D8-8C56-BEDF044373F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEC60A40-5BC8-49D8-8C56-BEDF044373F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEC60A40-5BC8-49D8-8C56-BEDF044373F9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
