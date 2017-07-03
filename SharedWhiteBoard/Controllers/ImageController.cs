@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
-using SharedWhiteBoard.Resources;
+using WhiteBoardDetection;
 
 namespace SharedWhiteBoard.Controllers
 {
@@ -18,25 +16,17 @@ namespace SharedWhiteBoard.Controllers
         {
             try
             {
-                System.IO.File.AppendAllText($"{AppDomain.CurrentDomain.BaseDirectory}\\{Resources.Resources.StorageFolder}\\log.txt", "Starting upload.\n");
-
                 var image = await Request.Content.ReadAsByteArrayAsync();
 
-                var inputDirectoryFullPath =
-                    $"{AppDomain.CurrentDomain.BaseDirectory}\\{Resources.Resources.InputFolder}\\image.jpg";
+                var inputDirectoryFullPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\{Resources.Resources.InputFolder}\\image.jpg";
                 System.IO.File.WriteAllBytes(inputDirectoryFullPath, image);
-
-                System.IO.File.AppendAllText($"{AppDomain.CurrentDomain.BaseDirectory}\\{Resources.Resources.StorageFolder}\\log.txt", "Saved to input dir.\n");
-
-                var whiteBoardDetectionAppPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\WhiteBoardDetection.exe";
+                
                 var storageFolderPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\{Resources.Resources.StorageFolder}";
-                var process = Process.Start(whiteBoardDetectionAppPath, storageFolderPath);
 
-                System.IO.File.AppendAllText($"{AppDomain.CurrentDomain.BaseDirectory}\\{Resources.Resources.StorageFolder}\\log.txt", $"Started process {whiteBoardDetectionAppPath} with parameter {storageFolderPath}\n");
-
-                process.WaitForExit();
-
-                System.IO.File.AppendAllText($"{AppDomain.CurrentDomain.BaseDirectory}\\{Resources.Resources.StorageFolder}\\log.txt", $"Process ended.\n");
+                // TODO Use IoC
+                var imageRotator = new ImageRotator();
+                var whiteBoardExtractor = new WhiteBoardExtractor(new RectangleFinder(), new CornerFinder(new SimilarityChecker(), imageRotator), imageRotator);
+                whiteBoardExtractor.DetectAndCrop(storageFolderPath);
             }
             catch (Exception e)
             {
