@@ -95,5 +95,13 @@ namespace WhiteBoardDetection.Models
             Width = finalX - startingX;
             Height = finalY - startingY;
         }
+
+        public WhiteBoardRectangle(int x, int y, int width, int height)
+        {
+            X = x;
+            Y = y;
+            Width = width;
+            Height = height;
+        }
     }
 }

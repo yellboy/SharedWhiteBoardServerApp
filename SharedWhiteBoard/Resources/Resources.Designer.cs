@@ -61,7 +61,7 @@ namespace SharedWhiteBoard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Storage/input.
+        ///   Looks up a localized string similar to input.
         /// </summary>
         internal static string InputFolder {
             get {
@@ -70,7 +70,7 @@ namespace SharedWhiteBoard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Storage/output.
+        ///   Looks up a localized string similar to output.
         /// </summary>
         internal static string OutputFolder {
             get {

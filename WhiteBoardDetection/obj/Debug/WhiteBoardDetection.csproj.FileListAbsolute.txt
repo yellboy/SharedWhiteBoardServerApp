@@ -28,3 +28,4 @@ C:\Projects\SharedWhiteBoard\WhiteBoardDetection\bin\Debug\AForge.Math.dll
 C:\Projects\SharedWhiteBoard\WhiteBoardDetection\bin\Debug\AForge.xml
 C:\Projects\SharedWhiteBoard\WhiteBoardDetection\bin\Debug\AForge.Imaging.xml
 C:\Projects\SharedWhiteBoard\WhiteBoardDetection\bin\Debug\AForge.Math.xml
+C:\Projects\SharedWhiteBoard\WhiteBoardDetection\obj\Debug\WhiteBoardDetection.csprojResolveAssemblyReference.cache

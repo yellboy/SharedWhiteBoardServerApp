@@ -2,7 +2,6 @@ using System;
 using System.Drawing;
 using AForge.Imaging.Filters;
 using WhiteBoardDetection.Interfaces;
-using Image = AForge.Imaging.Image;
 
 namespace WhiteBoardDetection
 {
@@ -10,32 +9,39 @@ namespace WhiteBoardDetection
     {
         public double CheckSimilarity(Bitmap originalImage, Bitmap templateImage)
         {
-            var originalImageCopy = Image.Clone(originalImage);
-            var templateImageCopy = Image.Clone(templateImage);
-
-            var resizeFilter = new ResizeBilinear(originalImageCopy.Width, originalImageCopy.Height);
-            templateImage = resizeFilter.Apply(templateImageCopy);
-
-            var height = originalImageCopy.Height < templateImageCopy.Height ? originalImageCopy.Height : templateImageCopy.Height;
-            var width = originalImageCopy.Width < templateImageCopy.Width ? originalImageCopy.Width : templateImageCopy.Width;
-
-            var count = 0;
-
-            for (var x = 0; x < width; x++)
+            if (originalImage.Height > templateImage.Height || originalImage.Width > templateImage.Width)
             {
-                for (var y = 0; y < height; y++)
-                {
-                    var pixel1 = originalImageCopy.GetPixel(x, y);
-                    var pixel2 = templateImageCopy.GetPixel(x, y);
-
-                    if (Math.Abs(pixel1.GetHue() - pixel2.GetHue()) <= 50)
-                    {
-                        count++;
-                    }
-                }
+                return 0;
             }
 
-            return (double) count / (height * width);
+            var resizeFilter = new ResizeBilinear(originalImage.Width, originalImage.Height);
+            using (var templateImageCopy = resizeFilter.Apply(templateImage))
+            {
+                var height = originalImage.Height < templateImageCopy.Height
+                    ? originalImage.Height
+                    : templateImageCopy.Height;
+                var width = originalImage.Width < templateImageCopy.Width
+                    ? originalImage.Width
+                    : templateImageCopy.Width;
+
+                var count = 0;
+
+                for (var x = 0; x < width; x++)
+                {
+                    for (var y = 0; y < height; y++)
+                    {
+                        var pixel1 = originalImage.GetPixel(x, y);
+                        var pixel2 = templateImageCopy.GetPixel(x, y);
+
+                        if (Math.Abs(pixel1.GetHue() - pixel2.GetHue()) <= 60 && Math.Abs(pixel1.GetSaturation() - pixel2.GetSaturation()) <= 40)
+                        {
+                            count++;
+                        }
+                    }
+                }
+
+                return (double) count / (height * width);
+            }
         }
     }
 }

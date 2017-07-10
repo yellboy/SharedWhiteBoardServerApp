@@ -28,3 +28,4 @@ C:\Projects\SharedWhiteBoard\WhiteBoardDetection\bin\Release\zh-cn\ZedGraph.reso
 C:\Projects\SharedWhiteBoard\WhiteBoardDetection\bin\Release\zh-tw\ZedGraph.resources.dll
 C:\Projects\SharedWhiteBoard\WhiteBoardDetection\obj\Release\WhiteBoardDetection.dll
 C:\Projects\SharedWhiteBoard\WhiteBoardDetection\obj\Release\WhiteBoardDetection.pdb
+C:\Projects\SharedWhiteBoard\WhiteBoardDetection\obj\Release\WhiteBoardDetection.csprojResolveAssemblyReference.cache

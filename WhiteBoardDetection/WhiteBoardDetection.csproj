@@ -73,7 +73,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CornerFinder.cs" />
+    <Compile Include="CornerFinderAccordingToColors.cs" />
+    <Compile Include="CornerFinderAccordingToRectangles.cs" />
     <Compile Include="Interfaces\IImageRotator.cs" />
     <Compile Include="ImageRotator.cs" />
     <Compile Include="Interfaces\ICornerFinder.cs" />

@@ -14,6 +14,14 @@ namespace WhiteBoardDetection
 {
     public class RectangleFinder : IRectangleFinder
     {
+        private const float AngleDeviationTolerance = 5f;
+
+        private const float ContraryDistanceDeviationTolerance = 5f;
+
+        private const float MinimumRectangleSurface = 800f;
+        private const int DistanceBetweenCenterDeviationTolerance = 1;
+        private const int PointSimilarityTolerance = 5;
+
         public IReadOnlyCollection<RectangularContour> Find(Bitmap image)
         {
             var medianFilter = new Median(3);
@@ -28,6 +36,7 @@ namespace WhiteBoardDetection
             
             var rectangles = new List<RectangularContour>();
 
+
             foreach (var blob in blobs)
             {
                 var edgePoints = blobCounter.GetBlobsEdgePoints(blob);
@@ -39,9 +48,13 @@ namespace WhiteBoardDetection
 
                 var corners = PointsCloud.FindQuadrilateralCorners(edgePoints);
 
-                if (IsQuadrilateral(corners, edgePoints) && IsRectangle(corners) && !IsSimilarRectangleFound(rectangles, corners))
+                if (IsQuadrilateral(corners, edgePoints))
                 {
-                    rectangles.Add(new RectangularContour(corners));
+                    if (IsQuadrilateral(corners, edgePoints) && IsRectangle(corners) &&
+                        !IsSimilarRectangleFound(rectangles, corners))
+                    {
+                        rectangles.Add(new RectangularContour(corners));
+                    }
                 }
             }
 
@@ -59,7 +72,7 @@ namespace WhiteBoardDetection
             {
                 foreach (var point2 in contour2)
                 {
-                    if (Math.Abs(point1.X - point2.X) > 5 || Math.Abs(point1.Y - point2.Y) > 5)
+                    if (Math.Abs(point1.X - point2.X) > PointSimilarityTolerance || Math.Abs(point1.Y - point2.Y) > PointSimilarityTolerance)
                     {
                         return false;
                     }
@@ -102,7 +115,7 @@ namespace WhiteBoardDetection
             return meanDistance <= maxDistance;
         }
 
-        private bool IsRectangle(IReadOnlyCollection<IntPoint> corners)
+        private static bool IsRectangle(IReadOnlyCollection<IntPoint> corners)
         {
             if (corners.Count != 4)
             {
@@ -123,7 +136,7 @@ namespace WhiteBoardDetection
             var dd3 = Math.Pow(cx - point1.X, 2) + Math.Pow(cy - point1.Y, 2);
             var dd4 = Math.Pow(cx - point1.X, 2) + Math.Pow(cy - point1.Y, 2);
 
-            if (!(Math.Abs(dd1 - dd2) < 1 && Math.Abs(dd1 - dd3) < 1 && Math.Abs(dd1 - dd4) < 1))
+            if (!(Math.Abs(dd1 - dd2) < DistanceBetweenCenterDeviationTolerance && Math.Abs(dd1 - dd3) < DistanceBetweenCenterDeviationTolerance && Math.Abs(dd1 - dd4) < DistanceBetweenCenterDeviationTolerance))
             {
                 return false;
             };
@@ -134,19 +147,19 @@ namespace WhiteBoardDetection
             var side3 = Line.FromPoints(point3, point4);
             var side4 = Line.FromPoints(point4, point1);
 
-            if (Math.Abs(90 - side1.GetAngleBetweenLines(side2)) > 3)
+            if (Math.Abs(90 - side1.GetAngleBetweenLines(side2)) > AngleDeviationTolerance)
             {
                 return false;
             }
-            if (Math.Abs(90 - side2.GetAngleBetweenLines(side3)) > 3)
+            if (Math.Abs(90 - side2.GetAngleBetweenLines(side3)) > AngleDeviationTolerance)
             {
                 return false;
             }
-            if (Math.Abs(90 - side3.GetAngleBetweenLines(side4)) > 3)
+            if (Math.Abs(90 - side3.GetAngleBetweenLines(side4)) > AngleDeviationTolerance)
             {
                 return false;
             }
-            if (Math.Abs(90 - side4.GetAngleBetweenLines(side1)) > 3)
+            if (Math.Abs(90 - side4.GetAngleBetweenLines(side1)) > AngleDeviationTolerance)
             {
                 return false;
             }
@@ -155,17 +168,17 @@ namespace WhiteBoardDetection
             var distance1 = point1.DistanceTo(point2);
             var distance2 = point2.DistanceTo(point3);
 
-            if (Math.Abs(distance1 - point3.DistanceTo(point4)) > 3)
+            if (Math.Abs(distance1 - point3.DistanceTo(point4)) > ContraryDistanceDeviationTolerance)
             {
                 return false;
             }
-            if (Math.Abs(distance2 - point1.DistanceTo(point4)) > 3)
+            if (Math.Abs(distance2 - point1.DistanceTo(point4)) > ContraryDistanceDeviationTolerance)
             {
                 return false;
             }
 
             // Filter out small rectangles because they can be considered as noise
-            return distance1 * distance2 >= 800;
+            return distance1 * distance2 >= MinimumRectangleSurface;
         }
 
         private static Point[] ToPointsArray(IEnumerable<IntPoint> corners)
