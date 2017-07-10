@@ -10,8 +10,6 @@ namespace SharedWhiteBoard.Controllers
 {
     public class ImageController : ApiController
     {
-        private static int _count = 0;
-
         [HttpPost]
         [Route("ImageApi/Image/{participantOrder}")]
         public async Task<IHttpActionResult> UploadImage(string participantOrder)
@@ -42,23 +40,8 @@ namespace SharedWhiteBoard.Controllers
         [Route("ImageApi/Image/{participantOrder}")]
         public HttpResponseMessage GetLastImage(string participantOrder)
         {
-            string filePath;
-            if (participantOrder == "B")
-            {
-                filePath =
-                    $"{AppDomain.CurrentDomain.BaseDirectory}\\{Resources.Resources.StorageFolder}\\A\\{Resources.Resources.OutputFolder}\\image.jpg";
-            }
-            else
-            {
-                _count++;
-                if (_count > 3)
-                {
-                    _count = 1;
-                }
-
-                filePath =
-                    $"{AppDomain.CurrentDomain.BaseDirectory}\\{Resources.Resources.StorageFolder}\\B\\{Resources.Resources.OutputFolder}\\image{_count}.jpg";
-            }
+            var outputFolderParentFolder = participantOrder == "A" ? "B" : "A";
+            var filePath = $"{AppDomain.CurrentDomain.BaseDirectory}\\{Resources.Resources.StorageFolder}\\{outputFolderParentFolder}\\{Resources.Resources.OutputFolder}\\image.jpg";
 
             var fileContent = System.IO.File.ReadAllBytes(filePath);
             var result = new HttpResponseMessage(HttpStatusCode.OK)
@@ -68,7 +51,6 @@ namespace SharedWhiteBoard.Controllers
 
             result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/png");
             return result;
-
         }
     }
 }
