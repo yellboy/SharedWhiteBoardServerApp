@@ -5,7 +5,7 @@ namespace WhiteBoardDetection.Interfaces
 {
     public interface IImageRotator
     {
-        Bitmap RotateImageAccordingToRectangularContour(Bitmap image, RectangularContour rectangle);
+        Bitmap RotateImageAccordingToCorners(Bitmap image, WhiteBoardCorners whiteBoardCorners);
 
         Bitmap RotateImage(Bitmap image, double angle);
     }

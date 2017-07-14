@@ -9,12 +9,18 @@ namespace WhiteBoardDetection
 {
     public class ImageRotator : IImageRotator
     {
-        public Bitmap RotateImageAccordingToRectangularContour(Bitmap image, RectangularContour rectangle)
+        public Bitmap RotateImageAccordingToCorners(Bitmap image, WhiteBoardCorners whiteBoardCorners)
         {
-            var angle1 = FindAngle(rectangle.UpperLeft, rectangle.UpperRight);
-            var angle2 = FindAngle(rectangle.UpperRight, rectangle.BottomRight);
-            var angle3 = FindAngle(rectangle.BottomRight, rectangle.BottomLeft);
-            var angle4 = FindAngle(rectangle.BottomLeft, rectangle.UpperLeft);
+            if (!whiteBoardCorners.UpperLeft.HasValue || !whiteBoardCorners.BottomLeft.HasValue ||
+                !whiteBoardCorners.UpperRight.HasValue || !whiteBoardCorners.BottomRight.HasValue)
+            {
+                return image;
+            }
+
+            var angle1 = FindAngle(whiteBoardCorners.UpperLeft.Value, whiteBoardCorners.UpperRight.Value);
+            var angle2 = FindAngle(whiteBoardCorners.UpperRight.Value, whiteBoardCorners.BottomRight.Value);
+            var angle3 = FindAngle(whiteBoardCorners.BottomRight.Value, whiteBoardCorners.BottomLeft.Value);
+            var angle4 = FindAngle(whiteBoardCorners.BottomLeft.Value, whiteBoardCorners.UpperLeft.Value);
 
             var angle = (angle1 + angle2 + angle3 + angle4) / 4;
 

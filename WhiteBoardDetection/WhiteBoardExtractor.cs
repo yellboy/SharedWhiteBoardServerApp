@@ -42,7 +42,7 @@ namespace WhiteBoardDetection
             var whiteBoardRectangle = new WhiteBoardRectangle(image, corners);
 
             // TODO Right now, this does nothing. Fix it.
-            image = _imageRotator.RotateImageAccordingToRectangularContour(image, new RectangularContour(whiteBoardRectangle));
+            image = _imageRotator.RotateImageAccordingToCorners(image, corners);
 
             var cropFilter = new Crop(new Rectangle(whiteBoardRectangle.X, whiteBoardRectangle.Y, whiteBoardRectangle.Width, whiteBoardRectangle.Height));
             image = cropFilter.Apply(image);
