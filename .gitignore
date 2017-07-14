@@ -1,1 +1,5 @@
 /x64
+/SharedWhiteBoard/Properties
+bin
+obj
+/.vs
