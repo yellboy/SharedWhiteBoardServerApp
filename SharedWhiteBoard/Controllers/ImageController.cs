@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -40,8 +41,7 @@ namespace SharedWhiteBoard.Controllers
         [Route("ImageApi/Image/{participantOrder}")]
         public HttpResponseMessage GetLastImage(string participantOrder)
         {
-            var outputFolderParentFolder = participantOrder == "A" ? "B" : "A";
-            var filePath = $"{AppDomain.CurrentDomain.BaseDirectory}\\{Resources.Resources.StorageFolder}\\{outputFolderParentFolder}\\{Resources.Resources.OutputFolder}\\image.jpg";
+            var filePath = GetOutputFilePath(participantOrder);
 
             var fileContent = System.IO.File.ReadAllBytes(filePath);
             var result = new HttpResponseMessage(HttpStatusCode.OK)
@@ -51,6 +51,26 @@ namespace SharedWhiteBoard.Controllers
 
             result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/png");
             return result;
+        }
+
+        private static string GetOutputFilePath(string participantOrder)
+        {
+            var outputFolderParentFolder = participantOrder == "A" ? "B" : "A";
+            var filePath = $"{AppDomain.CurrentDomain.BaseDirectory}\\{Resources.Resources.StorageFolder}\\{outputFolderParentFolder}\\{Resources.Resources.OutputFolder}\\image.jpg";
+
+            return filePath;
+        }
+
+        [HttpGet]
+        [Route("ImageApi/Image/{participantOrder}/DarkArea")]
+        public IHttpActionResult GetNonWhiteAreaFromLastImage(string participantOrder)
+        {
+            var filePath = GetOutputFilePath(participantOrder);
+
+            var darkAreaFinder = new DarkAreaFinder();
+            var darkAreas = darkAreaFinder.Find(new Bitmap(Image.FromFile(filePath)));
+
+            return Ok(darkAreas);
         }
     }
 }

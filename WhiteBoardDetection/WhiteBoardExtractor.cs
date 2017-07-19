@@ -1,6 +1,9 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
+using System.Web.Helpers;
 using AForge.Imaging.Filters;
+using Newtonsoft.Json;
 using WhiteBoardDetection.Interfaces;
 using WhiteBoardDetection.Models;
 using Image = AForge.Imaging.Image;
@@ -42,7 +45,7 @@ namespace WhiteBoardDetection
             var whiteBoardRectangle = new WhiteBoardRectangle(image, corners);
 
             // TODO Right now, this does nothing. Fix it.
-            image = _imageRotator.RotateImageAccordingToCorners(image, corners);
+            //image = _imageRotator.RotateImageAccordingToCorners(image, corners);
 
             var cropFilter = new Crop(new Rectangle(whiteBoardRectangle.X, whiteBoardRectangle.Y, whiteBoardRectangle.Width, whiteBoardRectangle.Height));
             image = cropFilter.Apply(image);
