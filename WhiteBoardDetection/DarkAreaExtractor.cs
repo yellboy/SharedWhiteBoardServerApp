@@ -11,9 +11,9 @@ namespace WhiteBoardDetection
     {
         private const double MinimumSaturationOfColoredPixel = 0.21;
 
-        public void ExtractDarkAreas(string imagePath)
+        public Bitmap ExtractDarkAreas(Bitmap image)
         {
-            var image = Image.FromFile(imagePath);
+            var resultImage = Image.Clone(image);
 
             for (var y = 0; y < image.Height; y++)
             {
@@ -24,16 +24,16 @@ namespace WhiteBoardDetection
 
                     if (saturation > MinimumSaturationOfColoredPixel)
                     {
-                        image.SetPixel(x, y, Color.OrangeRed);
+                        resultImage.SetPixel(x, y, Color.OrangeRed);
                     }
                     else
                     {
-                        image.SetPixel(x, y, Color.Black);
+                        resultImage.SetPixel(x, y, Color.Black);
                     }
                 }
             }
 
-            image.Save(imagePath);
+            return resultImage;
         }
     }
 }

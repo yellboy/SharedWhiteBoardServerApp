@@ -7,6 +7,6 @@ namespace WhiteBoardDetection.Interfaces
 {
     public interface IDarkAreaExtractor
     {
-        void ExtractDarkAreas(string image);
+        Bitmap ExtractDarkAreas(Bitmap image);
     }
 }

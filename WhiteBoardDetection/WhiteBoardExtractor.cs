@@ -19,14 +19,17 @@ namespace WhiteBoardDetection
         private const string Template3ImagePath = "\\input\\template3.jpg";
         private const string Template4ImagePath = "\\input\\template4.jpg";
         private const string OutputImagePath = "\\output\\image.jpg";
+        private const string DarkOutputImagePath = "\\output\\dark.jpg";
 
         private readonly ICornerFinder _cornerFinder;
         private readonly IImageRotator _imageRotator;
+        private readonly DarkAreaExtractor _darkAreaExtractor;
 
-        public WhiteBoardExtractor(ICornerFinder cornerFinder, IImageRotator imageRotator)
+        public WhiteBoardExtractor(ICornerFinder cornerFinder, IImageRotator imageRotator, DarkAreaExtractor darkAreaExtractor)
         {
             _cornerFinder = cornerFinder;
             _imageRotator = imageRotator;
+            _darkAreaExtractor = darkAreaExtractor;
         }
         
         public void DetectAndCrop(string storageFolder)
@@ -55,6 +58,9 @@ namespace WhiteBoardDetection
 
             image.Save($"{storageFolder}{OutputImagePath}");
 
+            var darkImage = _darkAreaExtractor.ExtractDarkAreas(image);
+            darkImage.Save($"{storageFolder}{DarkOutputImagePath}");
+            
             stopwatch.Stop();
 
             Debug.WriteLine($"Whiteboard extraction took {stopwatch.ElapsedMilliseconds} ms.");

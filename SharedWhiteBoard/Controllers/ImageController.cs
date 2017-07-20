@@ -19,14 +19,14 @@ namespace SharedWhiteBoard.Controllers
             {
                 var image = await Request.Content.ReadAsByteArrayAsync();
 
-                var inputDirectoryFullPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\{Resources.Resources.StorageFolder}\\{participantOrder}\\{Resources.Resources.InputFolder}\\image.jpg";
-                System.IO.File.WriteAllBytes(inputDirectoryFullPath, image);
-                
                 var storageFolderPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\{Resources.Resources.StorageFolder}\\{participantOrder}";
+                var inputDirectoryFullPath = $"{storageFolderPath}\\{Resources.Resources.InputFolder}\\image.jpg";
+
+                System.IO.File.WriteAllBytes(inputDirectoryFullPath, image);
 
                 // TODO Use IoC
                 var imageRotator = new ImageRotator();
-                var whiteBoardExtractor = new WhiteBoardExtractor(new CornerFinderAccordingToRectangles(new SimilarityChecker(), imageRotator, new RectangleFinder()), imageRotator);
+                var whiteBoardExtractor = new WhiteBoardExtractor(new CornerFinderAccordingToRectangles(new SimilarityChecker(), imageRotator, new RectangleFinder()), imageRotator, new DarkAreaExtractor());
                 whiteBoardExtractor.DetectAndCrop(storageFolderPath);
 
                 return Ok();
@@ -67,14 +67,21 @@ namespace SharedWhiteBoard.Controllers
         }
 
         [HttpGet]
-        [Route("ImageApi/Image/{participantOrder}/DarkAreas")]
+        [Route("ImageApi/Image/{participantOrder}/Dark")]
         public HttpResponseMessage GetLastImageWithOnlyDarkAreas(string participantOrder)
         {
-            var filePath = GetOutputFilePath(participantOrder);
+            var filePath = GetDarkOutputFilePath(participantOrder);
             
-            new DarkAreaExtractor().ExtractDarkAreas(filePath);
-
             return CreateResponseMessageFromFile(filePath);
+        }
+
+        private static string GetDarkOutputFilePath(string participantOrder)
+        {
+            var outputFolderParentFolder = participantOrder == "A" ? "B" : "A";
+            var filePath1 =
+                $"{AppDomain.CurrentDomain.BaseDirectory}\\{Resources.Resources.StorageFolder}\\{outputFolderParentFolder}\\{Resources.Resources.OutputFolder}\\dark.jpg";
+            var filePath = filePath1;
+            return filePath;
         }
     }
 }

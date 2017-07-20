@@ -111,8 +111,6 @@
     <Compile Include="Interfaces\IWhiteBoardExtractor.cs" />
     <Compile Include="Interfaces\ISimilarityChecker.cs" />
     <Compile Include="DarkAreaExtractor.cs" />
-    <Compile Include="Models\DarkAreas.cs" />
-    <Compile Include="Models\DarkPoint.cs" />
     <Compile Include="Models\RectangularContour.cs" />
     <Compile Include="RectangleFinder.cs" />
     <Compile Include="SimilarityChecker.cs" />
