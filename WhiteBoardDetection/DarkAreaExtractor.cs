@@ -2,16 +2,18 @@ using System.Collections.Generic;
 using System.Drawing;
 using AForge;
 using WhiteBoardDetection.Interfaces;
+using WhiteBoardDetection.Models;
+using Image = AForge.Imaging.Image;
 
 namespace WhiteBoardDetection
 {
-    public class DarkAreaFinder : IDarkAreaFinder
+    public class DarkAreaExtractor : IDarkAreaExtractor
     {
         private const double MinimumSaturationOfColoredPixel = 0.21;
 
-        public IEnumerable<IntPoint> Find(Bitmap image)
+        public void ExtractDarkAreas(string imagePath)
         {
-            var notWhiteAreas = new List<IntPoint>();
+            var image = Image.FromFile(imagePath);
 
             for (var y = 0; y < image.Height; y++)
             {
@@ -22,12 +24,16 @@ namespace WhiteBoardDetection
 
                     if (saturation > MinimumSaturationOfColoredPixel)
                     {
-                        notWhiteAreas.Add(new IntPoint(x, y));
+                        image.SetPixel(x, y, Color.OrangeRed);
+                    }
+                    else
+                    {
+                        image.SetPixel(x, y, Color.Black);
                     }
                 }
             }
 
-            return notWhiteAreas;;
+            image.Save(imagePath);
         }
     }
 }

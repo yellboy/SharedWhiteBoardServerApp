@@ -43,6 +43,11 @@ namespace SharedWhiteBoard.Controllers
         {
             var filePath = GetOutputFilePath(participantOrder);
 
+            return CreateResponseMessageFromFile(filePath);
+        }
+
+        private static HttpResponseMessage CreateResponseMessageFromFile(string filePath)
+        {
             var fileContent = System.IO.File.ReadAllBytes(filePath);
             var result = new HttpResponseMessage(HttpStatusCode.OK)
             {
@@ -62,15 +67,14 @@ namespace SharedWhiteBoard.Controllers
         }
 
         [HttpGet]
-        [Route("ImageApi/Image/{participantOrder}/DarkArea")]
-        public IHttpActionResult GetNonWhiteAreaFromLastImage(string participantOrder)
+        [Route("ImageApi/Image/{participantOrder}/DarkAreas")]
+        public HttpResponseMessage GetLastImageWithOnlyDarkAreas(string participantOrder)
         {
             var filePath = GetOutputFilePath(participantOrder);
+            
+            new DarkAreaExtractor().ExtractDarkAreas(filePath);
 
-            var darkAreaFinder = new DarkAreaFinder();
-            var darkAreas = darkAreaFinder.Find(new Bitmap(Image.FromFile(filePath)));
-
-            return Ok(darkAreas);
+            return CreateResponseMessageFromFile(filePath);
         }
     }
 }

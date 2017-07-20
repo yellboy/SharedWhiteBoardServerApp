@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using AForge;
+using WhiteBoardDetection.Models;
 
 namespace WhiteBoardDetection.Interfaces
 {
-    public interface IDarkAreaFinder
+    public interface IDarkAreaExtractor
     {
-        IEnumerable<IntPoint> Find(Bitmap image);
+        void ExtractDarkAreas(string image);
     }
 }
