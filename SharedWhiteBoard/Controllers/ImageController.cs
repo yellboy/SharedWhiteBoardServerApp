@@ -1,33 +1,56 @@
 ﻿using System;
-using System.Drawing;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
+using SharedWhiteBoard.Interfaces;
+using SharedWhiteBoard.Services;
 using WhiteBoardDetection;
 
 namespace SharedWhiteBoard.Controllers
 {
     public class ImageController : ApiController
     {
-        [HttpPost]
-        [Route("ImageApi/Image/{participantOrder}")]
-        public async Task<IHttpActionResult> UploadImage(string participantOrder)
+        private readonly ISessionService _sessionService;
+
+        public ImageController()
         {
+            _sessionService = new SessionService();
+        }
+
+        [HttpPost]
+        [Route("ImageApi/Session/{sessionPin:long}/Image/{participantOrder}")]
+        public async Task<IHttpActionResult> UploadImage(long sessionPin, string participantOrder)
+        {
+            if (!SessionIsValid(sessionPin))
+            {
+                return BadRequest(Resources.Resources.NoSessionWithTheGivenPin);
+            }
+
             try
             {
                 var image = await Request.Content.ReadAsByteArrayAsync();
 
-                var storageFolderPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\{Resources.Resources.StorageFolder}\\{participantOrder}";
-                var inputDirectoryFullPath = $"{storageFolderPath}\\{Resources.Resources.InputFolder}\\image.jpg";
+                var storageFolderPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\{Resources.Resources.StorageFolder}";
+
+                var participantStorageFolderPath = $"{storageFolderPath}\\{sessionPin}\\{participantOrder}";
+                var inputDirectoryFullPath = $"{participantStorageFolderPath}\\{Resources.Resources.InputFolder}\\image.jpg";
 
                 System.IO.File.WriteAllBytes(inputDirectoryFullPath, image);
 
                 // TODO Use IoC
                 var imageRotator = new ImageRotator();
-                var whiteBoardExtractor = new WhiteBoardExtractor(new CornerFinderAccordingToRectangles(new SimilarityChecker(), imageRotator, new RectangleFinder()), imageRotator, new DarkAreaExtractor());
-                whiteBoardExtractor.DetectAndCrop(storageFolderPath);
+                var whiteBoardExtractor = new WhiteBoardExtractor(
+                    new CornerFinderAccordingToRectangles(
+                        new SimilarityChecker(), 
+                        imageRotator, 
+                        new RectangleFinder()), 
+                    imageRotator, 
+                    new DarkAreaExtractor());
+
+                var templatesFolderPath = $"{storageFolderPath}\\{Resources.Resources.TemplatesFolder}";
+                whiteBoardExtractor.DetectAndCrop(participantStorageFolderPath, templatesFolderPath);
 
                 return Ok();
             }
@@ -38,9 +61,19 @@ namespace SharedWhiteBoard.Controllers
         }
 
         [HttpGet]
-        [Route("ImageApi/Image/{participantOrder}")]
-        public HttpResponseMessage GetLastImage(string participantOrder)
+        [Route("ImageApi/Session/{sessionPin:long}/Image/{participantOrder}")]
+        public HttpResponseMessage GetLastImage(long sessionPin, string participantOrder)
         {
+            if (!SessionIsValid(sessionPin))
+            {
+                var response = new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent(Resources.Resources.NoSessionWithTheGivenPin)
+                };
+
+                return response;
+            }
+
             var filePath = GetOutputFilePath(participantOrder);
 
             return CreateResponseMessageFromFile(filePath);
@@ -58,21 +91,37 @@ namespace SharedWhiteBoard.Controllers
             return result;
         }
 
+        [HttpGet]
+        [Route("ImageApi/Session/{sessionPin:long}/Image/{participantOrder}/Dark")]
+        public HttpResponseMessage GetLastImageWithOnlyDarkAreas(long sessionPin, string participantOrder)
+        {
+            if (!SessionIsValid(sessionPin))
+            {
+                var response = new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent(Resources.Resources.NoSessionWithTheGivenPin)
+                };
+
+                return response;
+            }
+
+            var filePath = GetDarkOutputFilePath(participantOrder);
+            
+            return CreateResponseMessageFromFile(filePath);
+        }
+
+        private bool SessionIsValid(long sessionPin)
+        {
+            var session = _sessionService.GetSession(sessionPin);
+            return session != null && session.IsActive && session.BothParticipantsJoined;
+        }
+
         private static string GetOutputFilePath(string participantOrder)
         {
             var outputFolderParentFolder = participantOrder == "A" ? "B" : "A";
             var filePath = $"{AppDomain.CurrentDomain.BaseDirectory}\\{Resources.Resources.StorageFolder}\\{outputFolderParentFolder}\\{Resources.Resources.OutputFolder}\\image.jpg";
 
             return filePath;
-        }
-
-        [HttpGet]
-        [Route("ImageApi/Image/{participantOrder}/Dark")]
-        public HttpResponseMessage GetLastImageWithOnlyDarkAreas(string participantOrder)
-        {
-            var filePath = GetDarkOutputFilePath(participantOrder);
-            
-            return CreateResponseMessageFromFile(filePath);
         }
 
         private static string GetDarkOutputFilePath(string participantOrder)

@@ -28,7 +28,6 @@ C:\Projects\SharedWhiteBoard\WhiteBoardDetection\bin\Debug\AForge.Math.dll
 C:\Projects\SharedWhiteBoard\WhiteBoardDetection\bin\Debug\AForge.xml
 C:\Projects\SharedWhiteBoard\WhiteBoardDetection\bin\Debug\AForge.Imaging.xml
 C:\Projects\SharedWhiteBoard\WhiteBoardDetection\bin\Debug\AForge.Math.xml
-C:\Projects\SharedWhiteBoard\WhiteBoardDetection\obj\Debug\WhiteBoardDetection.csprojResolveAssemblyReference.cache
 C:\Projects\SharedWhiteBoard\WhiteBoardDetection\bin\Debug\Microsoft.Web.Infrastructure.dll
 C:\Projects\SharedWhiteBoard\WhiteBoardDetection\bin\Debug\Newtonsoft.Json.dll
 C:\Projects\SharedWhiteBoard\WhiteBoardDetection\bin\Debug\System.Web.Helpers.dll
@@ -42,3 +41,4 @@ C:\Projects\SharedWhiteBoard\WhiteBoardDetection\bin\Debug\System.Web.Razor.xml
 C:\Projects\SharedWhiteBoard\WhiteBoardDetection\bin\Debug\System.Web.WebPages.xml
 C:\Projects\SharedWhiteBoard\WhiteBoardDetection\bin\Debug\System.Web.WebPages.Deployment.xml
 C:\Projects\SharedWhiteBoard\WhiteBoardDetection\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Projects\SharedWhiteBoard\WhiteBoardDetection\obj\Debug\WhiteBoardDetection.csprojResolveAssemblyReference.cache

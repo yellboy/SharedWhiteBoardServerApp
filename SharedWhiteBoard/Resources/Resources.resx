@@ -126,4 +126,13 @@
   <data name="StorageFolder" xml:space="preserve">
     <value>Storage</value>
   </data>
+  <data name="NoSessionWithTheGivenPin" xml:space="preserve">
+    <value>There is no session with the given pin.</value>
+  </data>
+  <data name="ConnectionSuccessfull" xml:space="preserve">
+    <value>Connection successfull</value>
+  </data>
+  <data name="TemplatesFolder" xml:space="preserve">
+    <value>templates</value>
+  </data>
 </root>

@@ -61,11 +61,29 @@ namespace SharedWhiteBoard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connection successfull.
+        /// </summary>
+        internal static string ConnectionSuccessfull {
+            get {
+                return ResourceManager.GetString("ConnectionSuccessfull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to input.
         /// </summary>
         internal static string InputFolder {
             get {
                 return ResourceManager.GetString("InputFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no session with the given pin..
+        /// </summary>
+        internal static string NoSessionWithTheGivenPin {
+            get {
+                return ResourceManager.GetString("NoSessionWithTheGivenPin", resourceCulture);
             }
         }
         
@@ -84,6 +102,15 @@ namespace SharedWhiteBoard.Resources {
         internal static string StorageFolder {
             get {
                 return ResourceManager.GetString("StorageFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to templates.
+        /// </summary>
+        internal static string TemplatesFolder {
+            get {
+                return ResourceManager.GetString("TemplatesFolder", resourceCulture);
             }
         }
     }
