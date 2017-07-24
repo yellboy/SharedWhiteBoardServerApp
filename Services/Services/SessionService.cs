@@ -3,21 +3,21 @@ using System.Linq;
 using SharedWhiteBoard.Interfaces;
 using SharedWhiteBoard.Models;
 
-namespace SharedWhiteBoard.Services
+namespace Services.Services
 {
     public class SessionService : ISessionService
     {
-        private static readonly IList<Session> _sessions = new List<Session>();
+        private static readonly IList<Session> Sessions = new List<Session>();
 
         public Session GetSession(long sessionPin)
         {
-            return _sessions.SingleOrDefault(s => s.SessionPin == sessionPin);
+            return Sessions.SingleOrDefault(s => s.SessionPin == sessionPin);
         }
 
         public Session CreateSession()
         {
             var session = new Session();
-            _sessions.Add(session);
+            Sessions.Add(session);
 
             return session;
         }

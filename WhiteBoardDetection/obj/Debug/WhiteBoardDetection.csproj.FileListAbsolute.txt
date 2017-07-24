@@ -42,3 +42,5 @@ C:\Projects\SharedWhiteBoard\WhiteBoardDetection\bin\Debug\System.Web.WebPages.x
 C:\Projects\SharedWhiteBoard\WhiteBoardDetection\bin\Debug\System.Web.WebPages.Deployment.xml
 C:\Projects\SharedWhiteBoard\WhiteBoardDetection\bin\Debug\System.Web.WebPages.Razor.xml
 C:\Projects\SharedWhiteBoard\WhiteBoardDetection\obj\Debug\WhiteBoardDetection.csprojResolveAssemblyReference.cache
+C:\Projects\SharedWhiteBoard\WhiteBoardDetection\bin\Debug\Models.dll
+C:\Projects\SharedWhiteBoard\WhiteBoardDetection\bin\Debug\Models.pdb

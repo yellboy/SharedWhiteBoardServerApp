@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using AForge;
 using AForge.Imaging.Filters;
+using Models.WhiteBoardDetection;
 using WhiteBoardDetection.Interfaces;
 using WhiteBoardDetection.Models;
 

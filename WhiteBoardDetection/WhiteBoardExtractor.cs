@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
 using AForge.Imaging.Filters;
+using Models.WhiteBoardDetection;
 using WhiteBoardDetection.Interfaces;
 using WhiteBoardDetection.Models;
 using Image = AForge.Imaging.Image;

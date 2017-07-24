@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AForge;
+using WhiteBoardDetection.Models;
 
-namespace WhiteBoardDetection.Models
+namespace Models.WhiteBoardDetection
 {
     public class RectangularContour
     {

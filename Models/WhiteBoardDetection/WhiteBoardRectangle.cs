@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Drawing;
+using WhiteBoardDetection.Models;
 
-namespace WhiteBoardDetection.Models
+namespace Models.WhiteBoardDetection
 {
     public class WhiteBoardRectangle
     {

@@ -260,11 +260,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\ISessionService.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Session.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Resources\Resources.Designer.cs">
@@ -273,7 +271,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Results\ChallengeResult.cs" />
-    <Compile Include="Services\SessionService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -425,6 +422,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{859ED7A2-1CF5-4F12-A976-9DF70E4BB7DD}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\Services.csproj">
+      <Project>{886DC4D9-3EAE-438E-8B40-068D93728244}</Project>
+      <Name>Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WhiteBoardDetection\WhiteBoardDetection.csproj">
       <Project>{2A151FA0-3E41-4DB3-9E23-F29D494EF1B9}</Project>
       <Name>WhiteBoardDetection</Name>

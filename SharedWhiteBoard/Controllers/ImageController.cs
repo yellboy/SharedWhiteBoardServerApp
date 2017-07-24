@@ -4,8 +4,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Services.Services;
 using SharedWhiteBoard.Interfaces;
-using SharedWhiteBoard.Services;
 using WhiteBoardDetection;
 
 namespace SharedWhiteBoard.Controllers

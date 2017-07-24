@@ -6,8 +6,8 @@ using AForge;
 using AForge.Imaging;
 using AForge.Imaging.Filters;
 using AForge.Math.Geometry;
+using Models.WhiteBoardDetection;
 using WhiteBoardDetection.Interfaces;
-using WhiteBoardDetection.Models;
 using Point = System.Drawing.Point;
 
 namespace WhiteBoardDetection

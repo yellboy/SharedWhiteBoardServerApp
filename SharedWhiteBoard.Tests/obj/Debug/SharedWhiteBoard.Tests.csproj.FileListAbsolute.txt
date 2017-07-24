@@ -71,3 +71,9 @@ C:\Projects\SharedWhiteBoard\SharedWhiteBoard.Tests\bin\Debug\AForge.Math.dll
 C:\Projects\SharedWhiteBoard\SharedWhiteBoard.Tests\bin\Debug\AForge.Imaging.xml
 C:\Projects\SharedWhiteBoard\SharedWhiteBoard.Tests\bin\Debug\AForge.xml
 C:\Projects\SharedWhiteBoard\SharedWhiteBoard.Tests\bin\Debug\AForge.Math.xml
+C:\Projects\SharedWhiteBoard\SharedWhiteBoard.Tests\bin\Debug\nunit.framework.dll
+C:\Projects\SharedWhiteBoard\SharedWhiteBoard.Tests\bin\Debug\nunit.framework.xml
+C:\Projects\SharedWhiteBoard\SharedWhiteBoard.Tests\bin\Debug\Models.dll
+C:\Projects\SharedWhiteBoard\SharedWhiteBoard.Tests\bin\Debug\Services.dll
+C:\Projects\SharedWhiteBoard\SharedWhiteBoard.Tests\bin\Debug\Models.pdb
+C:\Projects\SharedWhiteBoard\SharedWhiteBoard.Tests\bin\Debug\Services.pdb

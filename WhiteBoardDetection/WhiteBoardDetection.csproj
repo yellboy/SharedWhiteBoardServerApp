@@ -111,12 +111,9 @@
     <Compile Include="Interfaces\IWhiteBoardExtractor.cs" />
     <Compile Include="Interfaces\ISimilarityChecker.cs" />
     <Compile Include="DarkAreaExtractor.cs" />
-    <Compile Include="Models\RectangularContour.cs" />
     <Compile Include="RectangleFinder.cs" />
     <Compile Include="SimilarityChecker.cs" />
-    <Compile Include="Models\WhiteBoardCorners.cs" />
     <Compile Include="WhiteBoardExtractor.cs" />
-    <Compile Include="Models\WhiteBoardRectangle.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Storage\errors.txt" />
@@ -129,6 +126,12 @@
     <Content Include="Storage\output\contours.jpg" />
     <Content Include="Storage\output\image.jpg" />
     <Content Include="Storage\wbdetectlog.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{859ED7A2-1CF5-4F12-A976-9DF70E4BB7DD}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
