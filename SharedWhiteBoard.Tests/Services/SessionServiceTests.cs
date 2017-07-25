@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
+using Services.Interfaces;
 using Services.Services;
-using SharedWhiteBoard.Interfaces;
 
 namespace SharedWhiteBoard.Tests.Services
 {

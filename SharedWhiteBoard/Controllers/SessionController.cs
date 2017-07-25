@@ -1,18 +1,19 @@
 ﻿using System;
 using System.IO;
 using System.Web.Http;
-using Services.Services;
-using SharedWhiteBoard.Interfaces;
+using Services.Interfaces;
 
 namespace SharedWhiteBoard.Controllers
 {
     public class SessionController : ApiController
     {
         private readonly ISessionService _sessionService;
+        private readonly IDirectoryStructureService _directoryService;
 
-        public SessionController()
+        public SessionController(ISessionService sessionService, IDirectoryStructureService directoryService)
         {
-            _sessionService = new SessionService();
+            _sessionService = sessionService;
+            _directoryService = directoryService;
         }
 
         [HttpGet]
@@ -22,14 +23,7 @@ namespace SharedWhiteBoard.Controllers
             var session = _sessionService.CreateSession();
 
             var storageFolderPath = $"{AppDomain.CurrentDomain.BaseDirectory}{Resources.Resources.StorageFolder}\\{session.SessionPin}";
-
-            Directory.CreateDirectory(storageFolderPath);
-            Directory.CreateDirectory($"{storageFolderPath}/A");
-            Directory.CreateDirectory($"{storageFolderPath}/B");
-            Directory.CreateDirectory($"{storageFolderPath}/A/{Resources.Resources.InputFolder}");
-            Directory.CreateDirectory($"{storageFolderPath}/B/{Resources.Resources.InputFolder}");
-            Directory.CreateDirectory($"{storageFolderPath}/A/{Resources.Resources.OutputFolder}");
-            Directory.CreateDirectory($"{storageFolderPath}/B/{Resources.Resources.OutputFolder}");
+            _directoryService.CreateDirectoryStructureForBothParticipants(storageFolderPath);
 
             return Ok(session.SessionPin);
         }

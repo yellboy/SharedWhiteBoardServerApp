@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
+using Microsoft.Practices.Unity;
 using Owin;
+using Services;
 
 [assembly: OwinStartup(typeof(SharedWhiteBoard.Startup))]
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SharedWhiteBoard.Interfaces;
+using Services.Interfaces;
 using SharedWhiteBoard.Models;
 
 namespace Services.Services

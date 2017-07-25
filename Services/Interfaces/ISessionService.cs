@@ -1,6 +1,6 @@
 ﻿using SharedWhiteBoard.Models;
 
-namespace SharedWhiteBoard.Interfaces
+namespace Services.Interfaces
 {
     public interface ISessionService
     {

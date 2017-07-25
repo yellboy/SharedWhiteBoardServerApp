@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SharedWhiteBoard.Resources {
+namespace Resources {
     using System;
     
     
@@ -22,7 +22,7 @@ namespace SharedWhiteBoard.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,10 +36,10 @@ namespace SharedWhiteBoard.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SharedWhiteBoard.Resources.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resources.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace SharedWhiteBoard.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace SharedWhiteBoard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Connection successfull.
         /// </summary>
-        internal static string ConnectionSuccessfull {
+        public static string ConnectionSuccessfull {
             get {
                 return ResourceManager.GetString("ConnectionSuccessfull", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace SharedWhiteBoard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to input.
         /// </summary>
-        internal static string InputFolder {
+        public static string InputFolder {
             get {
                 return ResourceManager.GetString("InputFolder", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace SharedWhiteBoard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to There is no session with the given pin..
         /// </summary>
-        internal static string NoSessionWithTheGivenPin {
+        public static string NoSessionWithTheGivenPin {
             get {
                 return ResourceManager.GetString("NoSessionWithTheGivenPin", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace SharedWhiteBoard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to output.
         /// </summary>
-        internal static string OutputFolder {
+        public static string OutputFolder {
             get {
                 return ResourceManager.GetString("OutputFolder", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace SharedWhiteBoard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Storage.
         /// </summary>
-        internal static string StorageFolder {
+        public static string StorageFolder {
             get {
                 return ResourceManager.GetString("StorageFolder", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace SharedWhiteBoard.Resources {
         /// <summary>
         ///   Looks up a localized string similar to templates.
         /// </summary>
-        internal static string TemplatesFolder {
+        public static string TemplatesFolder {
             get {
                 return ResourceManager.GetString("TemplatesFolder", resourceCulture);
             }
