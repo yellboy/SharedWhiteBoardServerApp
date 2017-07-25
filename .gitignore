@@ -4,3 +4,7 @@ bin
 obj
 /.vs
 /SharedWhiteBoard/Storage
+/WhiteBoardDetection/obj
+/WhiteBoardDetection/bin
+/SharedWhiteBoard.Tests/obj
+/SharedWhiteBoard.Tests/bin
