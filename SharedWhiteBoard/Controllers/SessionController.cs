@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Web.Http;
 using Services.Interfaces;
 

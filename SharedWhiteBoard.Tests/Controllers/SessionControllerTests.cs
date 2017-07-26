@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Web.Http;
 using System.Web.Http.Results;
 using Moq;
 using NUnit.Framework;
 using Services.Interfaces;
 using SharedWhiteBoard.Controllers;
 using SharedWhiteBoard.Models;
-using Resources;
 
 namespace SharedWhiteBoard.Tests.Controllers
 {
@@ -37,6 +33,65 @@ namespace SharedWhiteBoard.Tests.Controllers
             sessionServiceMock.Verify(m => m.CreateSession());
             directoryServiceMock.Verify(m => m.CreateDirectoryStructureForBothParticipants($"{AppDomain.CurrentDomain.BaseDirectory}{Resources.Resources.StorageFolder}\\{dummySession.SessionPin}"));
             Assert.AreEqual(dummySession.SessionPin, resultSessionPin);
+        }
+
+        [Test]
+        public void GivenSession_WhenConnectToExistingSessionWithWrongPin_ThenBadRequest()
+        {
+            // Given
+            var existingSession = new Session();
+
+            var sessionServiceMock = new Mock<ISessionService>();
+            sessionServiceMock.Setup(m => m.JoinSession(existingSession.SessionPin)).Returns(true);
+            sessionServiceMock.Setup(m => m.JoinSession(It.IsAny<long>())).Returns(false);
+
+            var directoryServiceMock = new Mock<IDirectoryStructureService>();
+
+            var sessionController = new SessionController(sessionServiceMock.Object, directoryServiceMock.Object);
+
+            // When
+            var resultMessage = ((BadRequestErrorMessageResult)sessionController.ConnectToExistingSession(existingSession.SessionPin + 1)).Message;
+
+            // Then
+            Assert.AreEqual("There is no active session with the given pin.", resultMessage);
+        }
+
+        [Test]
+        public void GivenSession_WhenConnectToExistingSessionWithCorrectPin_ThenConnectionSuccessfullAndJoinSessionInvoked()
+        {
+            // Given
+            var existingSession = new Session();
+
+            var sessionServiceMock = new Mock<ISessionService>();
+            sessionServiceMock.Setup(m => m.JoinSession(It.IsAny<long>())).Returns(false);
+            sessionServiceMock.Setup(m => m.JoinSession(existingSession.SessionPin)).Returns(true);
+
+            var directoryServiceMock = new Mock<IDirectoryStructureService>();
+
+            var sessionController = new SessionController(sessionServiceMock.Object, directoryServiceMock.Object);
+
+            // When
+            var resultMessage = ((OkNegotiatedContentResult<string>)sessionController.ConnectToExistingSession(existingSession.SessionPin)).Content;
+
+            // Then
+            sessionServiceMock.Verify(m => m.JoinSession(existingSession.SessionPin));
+            Assert.AreEqual("Connection successfull", resultMessage);
+        }
+
+        [Test]
+        public void WhenEndSession_ThenSessionEnded()
+        {
+            const long sessionPin = 5;
+
+            // When            
+            var sessionServiceMock = new Mock<ISessionService>();
+            var directoryServiceMock = new Mock<IDirectoryStructureService>();
+
+            var sessionController = new SessionController(sessionServiceMock.Object, directoryServiceMock.Object);
+            sessionController.EndSession(sessionPin);
+
+            // Then
+            sessionServiceMock.Verify(m => m.EndSession(sessionPin));
         }
     }
 }

@@ -79,7 +79,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There is no session with the given pin..
+        ///   Looks up a localized string similar to There is no active session with the given pin..
         /// </summary>
         public static string NoSessionWithTheGivenPin {
             get {
