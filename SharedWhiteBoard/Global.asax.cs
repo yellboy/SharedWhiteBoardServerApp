@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Web.Helpers;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -17,8 +18,7 @@ namespace SharedWhiteBoard
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            
-            ControllerBuilder.Current.SetControllerFactory(new IoCControllerFactory(UnityConfig.GetConfiguredContainer()));
+            AntiForgeryConfig.SuppressXFrameOptionsHeader = true;
         }
     }
 }

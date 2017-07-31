@@ -5,15 +5,20 @@ namespace Services.Services
 {
     public class DirectoryStructureService : IDirectoryStructureService
     {
-        public void CreateDirectoryStructureForBothParticipants(string storageFolderPath)
+        public void CreateDirectoryStructureForSession(string rootDirectoryPath)
         {
-            Directory.CreateDirectory(storageFolderPath);
-            Directory.CreateDirectory($"{storageFolderPath}/A");
-            Directory.CreateDirectory($"{storageFolderPath}/B");
-            Directory.CreateDirectory($"{storageFolderPath}/A/{Resources.Resources.InputFolder}");
-            Directory.CreateDirectory($"{storageFolderPath}/B/{Resources.Resources.InputFolder}");
-            Directory.CreateDirectory($"{storageFolderPath}/A/{Resources.Resources.OutputFolder}");
-            Directory.CreateDirectory($"{storageFolderPath}/B/{Resources.Resources.OutputFolder}");
+            Directory.CreateDirectory(rootDirectoryPath);
+            Directory.CreateDirectory($"{rootDirectoryPath}/A");
+            Directory.CreateDirectory($"{rootDirectoryPath}/B");
+            Directory.CreateDirectory($"{rootDirectoryPath}/A/{Resources.Resources.InputFolder}");
+            Directory.CreateDirectory($"{rootDirectoryPath}/B/{Resources.Resources.InputFolder}");
+            Directory.CreateDirectory($"{rootDirectoryPath}/A/{Resources.Resources.OutputFolder}");
+            Directory.CreateDirectory($"{rootDirectoryPath}/B/{Resources.Resources.OutputFolder}");
+        }
+
+        public void DeleteDirectoryStructureForSession(string rootDirectoryPath)
+        {
+            Directory.Delete(rootDirectoryPath, true);
         }
     }
 }

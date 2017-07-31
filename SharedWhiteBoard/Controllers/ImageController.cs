@@ -64,19 +64,31 @@ namespace SharedWhiteBoard.Controllers
         [Route("ImageApi/Session/{sessionPin:long}/Image/{participantOrder}")]
         public HttpResponseMessage GetLastImage(long sessionPin, string participantOrder)
         {
-            if (!SessionIsValid(sessionPin))
-            {
-                var response = new HttpResponseMessage(HttpStatusCode.BadRequest)
-                {
-                    Content = new StringContent(Resources.Resources.NoSessionWithTheGivenPin)
-                };
+            var session = _sessionService.GetSession(sessionPin);
 
-                return response;
+            if (session == null || !session.IsActive)
+            {
+                return CreateBadRequestResponse(Resources.Resources.NoSessionWithTheGivenPin);
+            }
+
+            if (!session.BothParticipantsJoined)
+            {
+                return CreateBadRequestResponse(Resources.Resources.NotAllParticipantsJoinedSession);
             }
 
             var filePath = GetOutputFilePath(participantOrder);
 
             return CreateResponseMessageFromFile(filePath);
+        }
+
+        private static HttpResponseMessage CreateBadRequestResponse(string responseMessage)
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.BadRequest)
+            {
+                Content = new StringContent(responseMessage)
+            };
+
+            return response;
         }
 
         private static HttpResponseMessage CreateResponseMessageFromFile(string filePath)

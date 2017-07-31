@@ -88,6 +88,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not all participants joined the session..
+        /// </summary>
+        public static string NotAllParticipantsJoinedSession {
+            get {
+                return ResourceManager.GetString("NotAllParticipantsJoinedSession", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to output.
         /// </summary>
         public static string OutputFolder {

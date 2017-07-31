@@ -135,4 +135,7 @@
   <data name="TemplatesFolder" xml:space="preserve">
     <value>templates</value>
   </data>
+  <data name="NotAllParticipantsJoinedSession" xml:space="preserve">
+    <value>Not all participants joined the session.</value>
+  </data>
 </root>

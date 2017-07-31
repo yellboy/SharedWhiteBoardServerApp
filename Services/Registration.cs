@@ -9,6 +9,7 @@ namespace Services
         public static void RegisterTypes(IUnityContainer container)
         {
             container.RegisterType<ISessionService, SessionService>();
+            container.RegisterType<IDirectoryStructureService, DirectoryStructureService>();
         }
     }
 }

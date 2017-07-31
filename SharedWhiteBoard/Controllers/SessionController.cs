@@ -21,10 +21,15 @@ namespace SharedWhiteBoard.Controllers
         {
             var session = _sessionService.CreateSession();
 
-            var storageFolderPath = $"{AppDomain.CurrentDomain.BaseDirectory}{Resources.Resources.StorageFolder}\\{session.SessionPin}";
-            _directoryService.CreateDirectoryStructureForBothParticipants(storageFolderPath);
+            var storageFolderPath = GetStorageFolderPath(session.SessionPin);
+            _directoryService.CreateDirectoryStructureForSession(storageFolderPath);
 
             return Ok(session.SessionPin);
+        }
+
+        private static string GetStorageFolderPath(long sessionPin)
+        {
+            return $"{AppDomain.CurrentDomain.BaseDirectory}{Resources.Resources.StorageFolder}\\{sessionPin}";
         }
 
         [HttpGet]
@@ -46,6 +51,9 @@ namespace SharedWhiteBoard.Controllers
         public IHttpActionResult EndSession(long sessionPin)
         {
             _sessionService.EndSession(sessionPin);
+
+            var storageFolderPath = GetStorageFolderPath(sessionPin);
+            _directoryService.DeleteDirectoryStructureForSession(storageFolderPath);
             
             return Ok();
         }

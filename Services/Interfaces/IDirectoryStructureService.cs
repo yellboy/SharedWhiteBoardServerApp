@@ -2,6 +2,8 @@
 {
     public interface IDirectoryStructureService
     {
-        void CreateDirectoryStructureForBothParticipants(string rootDirectoryPath);
+        void CreateDirectoryStructureForSession(string rootDirectoryPath);
+
+        void DeleteDirectoryStructureForSession(string rootDirectoryPath);
     }
 }

@@ -31,7 +31,7 @@ namespace SharedWhiteBoard.Tests.Controllers
 
             // Then
             sessionServiceMock.Verify(m => m.CreateSession());
-            directoryServiceMock.Verify(m => m.CreateDirectoryStructureForBothParticipants($"{AppDomain.CurrentDomain.BaseDirectory}{Resources.Resources.StorageFolder}\\{dummySession.SessionPin}"));
+            directoryServiceMock.Verify(m => m.CreateDirectoryStructureForSession($"{AppDomain.CurrentDomain.BaseDirectory}{Resources.Resources.StorageFolder}\\{dummySession.SessionPin}"));
             Assert.AreEqual(dummySession.SessionPin, resultSessionPin);
         }
 
@@ -79,7 +79,7 @@ namespace SharedWhiteBoard.Tests.Controllers
         }
 
         [Test]
-        public void WhenEndSession_ThenSessionEnded()
+        public void WhenEndSession_ThenSessionEndedAndDirectoryDeleted()
         {
             const long sessionPin = 5;
 
@@ -92,6 +92,7 @@ namespace SharedWhiteBoard.Tests.Controllers
 
             // Then
             sessionServiceMock.Verify(m => m.EndSession(sessionPin));
+            directoryServiceMock.Verify(m => m.DeleteDirectoryStructureForSession($"{AppDomain.CurrentDomain.BaseDirectory}{Resources.Resources.StorageFolder}\\{sessionPin}"));
         }
     }
 }
